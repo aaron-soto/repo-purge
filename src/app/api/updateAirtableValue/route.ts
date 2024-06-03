@@ -16,8 +16,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    console.log(fieldName, value);
-
     let id = '';
     if (fieldName === 'total_visitors') {
       id = 'recqXQfeulFI0SfkP';

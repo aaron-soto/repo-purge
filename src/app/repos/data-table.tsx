@@ -90,7 +90,6 @@ export function DataTable<TData, TValue>({
     try {
       const repos = await fetchRepos(session.accessToken!);
       if (repos) {
-        console.log(repos);
         setData(repos);
       }
     } catch (error) {
@@ -131,8 +130,6 @@ export function DataTable<TData, TValue>({
         // Check if response is not empty before parsing
         const resText = await updateResponse.text();
         const resData = resText ? JSON.parse(resText) : null;
-
-        console.log(resData);
 
         localStorage.setItem('deleteToast', 'true');
         window.location.reload();

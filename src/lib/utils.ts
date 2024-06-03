@@ -9,7 +9,6 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function mapToRepos(rawData: any): Repo {
-  console.log(rawData);
   return rawData.map((repo: any) => {
     return {
       id: repo.id,
