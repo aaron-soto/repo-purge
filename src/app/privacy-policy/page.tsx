@@ -1,9 +1,9 @@
-import PageHeader from "@/components/PageHeader";
-import { RP_INFO } from "@/lib/data";
+import PageHeader from '@/components/PageHeader';
+import { RP_INFO } from '@/lib/data';
 
 const Page = () => {
   return (
-    <div className="container pt-20">
+    <div className="container pt-20 px-3 sm:px-[2rem]">
       <PageHeader>Privacy Policy</PageHeader>
 
       <section>
@@ -33,13 +33,13 @@ const Page = () => {
         </h2>
         <p className="text-[#8a8a8a]">
           We use the information we collect from you to manage your account,
-          provide our services, and improve our app. For example, we use{" "}
+          provide our services, and improve our app. For example, we use{' '}
           <a
             href="https://docs.github.com/en/rest/authentication/authenticating-to-the-rest-api?apiVersion=2022-11-28"
             target="_blank"
           >
             your GitHub authentication
-          </a>{" "}
+          </a>{' '}
           to access and manage your repositories as per your instructions.
         </p>
       </section>

@@ -36,7 +36,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b h-18 bg-black/60 backdrop-blur-lg">
-      <div className="container">
+      <div className="container px-3 sm:px-[2rem]">
         <div className="relative flex items-center justify-between h-16">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             <button
@@ -107,7 +107,7 @@ const Navbar = () => {
             <button
               type="button"
               onClick={() => setChangeLogOpen(!changeLogOpen)}
-              className="relative p-2 text-gray-400 bg-black rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+              className="relative hidden md:block  p-2 text-gray-400 bg-black rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
             >
               <span className="absolute -inset-1.5"></span>
               <span className="sr-only">View Change Log</span>

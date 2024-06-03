@@ -46,7 +46,7 @@ const Page = () => {
   };
 
   return (
-    <div className="container py-20">
+    <div className="container py-20 px-3 sm:px-[2rem]">
       <PageHeader>Contact Us</PageHeader>
       <p>
         Got a technical issue? Want to send feedback about a beta feature? Need

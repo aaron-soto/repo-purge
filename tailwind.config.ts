@@ -12,12 +12,16 @@ const config = {
   theme: {
     container: {
       center: true,
-      padding: '2rem',
+      padding: {
+        DEFAULT: '2rem',
+        sm: '1rem',
+        md: '1.5rem',
+      },
       screens: {
-        sm: '100%', // Adjust this as needed
-        md: '100%', // Adjust this as needed
-        lg: '800px', // Set your custom width
-        xl: '960px', // Set your custom width
+        sm: '100%',
+        md: '100%',
+        lg: '800px',
+        xl: '960px',
       },
     },
     extend: {

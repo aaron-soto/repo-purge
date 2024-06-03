@@ -50,7 +50,7 @@ export default function Home() {
   return (
     <>
       <div className="custom-black-background">
-        <div className="container py-8">
+        <div className="container py-8 px-3 sm:px-[2rem]">
           <div className="flex items-center justify-center py-32 ">
             <div className="text-center">
               <h1 className="mb-4 text-5xl font-semibold">
@@ -80,12 +80,12 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="container py-20">
+      <div className="container py-20 px-3 sm:px-[2rem]">
         <h2 className="text-3xl font-semibold">Features</h2>
         <p className="mb-8 text-white/50">
           Why RepoPurge is a good tool to have
         </p>
-        <div className="grid grid-cols-2 gap-4 ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 ">
           {FEATURES.map((feature, idx) => {
             return (
               <div
@@ -99,16 +99,16 @@ export default function Home() {
           })}
         </div>
       </div>
-      <div className="container py-20">
+      <div className="container py-20 px-3 sm:px-[2rem]">
         <h2 className="text-3xl font-semibold">How it works</h2>
         <p className="mb-8 text-white/50">
           The simple process of using RepoPurge
         </p>
-        <div className="grid grid-cols-3 gap-4 ">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 md:gap-4 ">
           {STEPS.map((feature, idx) => {
             return (
               <div key={idx} className="">
-                <h2 className="mb-4 text-xl font-semibold">
+                <h2 className="mb-1 sm:mb-4 text-xl font-semibold">
                   <span className="text-yellow-300">{idx + 1}</span>.{' '}
                   {feature.title}
                 </h2>
@@ -120,7 +120,7 @@ export default function Home() {
       </div>
 
       <div className="grainy">
-        <div className="container py-32">
+        <div className="container py-32 px-3 sm:px-[2rem]">
           <h2 className="text-2xl font-semibold">Get in touch</h2>
           <p>Join our mail list to get updates on RepoPurge</p>
 

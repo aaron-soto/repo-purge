@@ -2,7 +2,7 @@ import { CHANGELOG } from '@/lib/data';
 
 const Page = () => {
   return (
-    <div className="container pt-20">
+    <div className="container pt-20 px-3 sm:px-[2rem]">
       <h2 className="text-4xl font-bold">Changelog</h2>
 
       {CHANGELOG.map((change, idx) => {

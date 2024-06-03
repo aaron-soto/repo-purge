@@ -13,7 +13,7 @@ export default function Repos() {
 
   if (status === 'loading') {
     return (
-      <div className="container pt-20">
+      <div className="container pt-20 px-3 sm:px-[2rem]">
         <PageHeader>Your Repos</PageHeader>
         <Skeleton className="w-[200px] h-[40px] mb-4" />
         <Skeleton className="w-full h-[600px]" />
@@ -27,7 +27,7 @@ export default function Repos() {
   }
 
   return (
-    <div className="container pt-20">
+    <div className="container pt-20 px-3 sm:px-[2rem]">
       <PageHeader>Your Repos</PageHeader>
       <DataTable columns={columns} />
     </div>
