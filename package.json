@@ -1,7 +1,35 @@
 {
-  "name": "github-auth",
-  "version": "0.1.0",
-  "private": true,
+  "name": "repo-purge",
+  "version": "1.0.0",
+  "description": "A web application to bulk delete GitHub repositories",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aaron-soto/RepoPurge.git"
+  },
+  "keywords": [
+    "github",
+    "repository",
+    "delete",
+    "bulk",
+    "management"
+  ],
+  "author": "Aaron Soto",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yourusername/RepoPurge/issues"
+  },
+  "homepage": "https://github.com/yourusername/RepoPurge#readme",
+  "funding": {
+    "type": "individual",
+    "url": "https://buymeacoffee.com/aaronmsoto2"
+  },
+  "contributors": [
+    {
+      "name": "Aaron Soto",
+      "email": "aaron.m.soto1@gmail.com",
+      "url": "https://aaronsoto.io"
+    }
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
