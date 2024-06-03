@@ -99,9 +99,9 @@ const RepoActionsCell = ({ row }: any) => {
               <Button variant="outline" onClick={() => setDialogOpen(false)}>
                 Cancel
               </Button>
-              <Button variant="destructive" onClick={handleDelete}>
+              {/* <Button variant="destructive" onClick={handleDelete}>
                 Delete
-              </Button>
+              </Button> */}
             </div>
           </DialogHeader>
         </DialogContent>
