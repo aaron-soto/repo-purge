@@ -32,7 +32,7 @@
   ],
   "scripts": {
     "dev": "next dev",
-    "create-dummy-repos": "python scripts/create_dummy_repos.py",
+    "create-dummy-repos": "python scripts/create-dummy-repos.py",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

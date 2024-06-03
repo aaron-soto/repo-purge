@@ -21,7 +21,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useToast } from '@/components/ui/use-toast';
-import { fetchRepos, mapToRepos } from '@/lib/utils';
+import { fetchRepos } from '@/lib/utils';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -90,7 +90,7 @@ export function DataTable<TData, TValue>({
     try {
       const repos = await fetchRepos(session.accessToken!);
       if (repos) {
-        setData(repos);
+        setData(repos as TData[]);
       }
     } catch (error) {
       console.error('Failed to fetch repos:', error);
@@ -108,7 +108,7 @@ export function DataTable<TData, TValue>({
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(mapToRepos(selectedRepos)),
+      body: JSON.stringify(selectedRepos),
     });
 
     const result = await response.json();
@@ -198,9 +198,9 @@ export function DataTable<TData, TValue>({
                     {header.isPlaceholder
                       ? null
                       : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
                   </TableHead>
                 ))}
               </TableRow>

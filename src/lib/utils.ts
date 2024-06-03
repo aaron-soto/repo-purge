@@ -8,8 +8,9 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function mapToRepos(rawData: any): Repo {
-  return rawData.map((repo: any) => {
+export function mapToRepos(rawData: any[]): Repo[] {
+  console.log('rawData', rawData);
+  return rawData.map((repo: any): Repo => {
     return {
       id: repo.id,
       name: repo.name,
@@ -32,7 +33,7 @@ export function mapToRepos(rawData: any): Repo {
 export const fetchRepos = async (sessionAccessToken: string) => {
   if (sessionAccessToken) {
     let page = 1;
-    let allRepos: any[] = [];
+    let allRepos: Repo[] = [];
     let fetchMore = true;
 
     while (fetchMore) {
@@ -47,12 +48,15 @@ export const fetchRepos = async (sessionAccessToken: string) => {
       const data = await response.json();
       allRepos = allRepos.concat(data);
       page += 1;
+
       if (data.length < 100) {
         fetchMore = false;
       }
     }
 
-    return allRepos;
+    const mappedRepos = mapToRepos(allRepos);
+
+    return mappedRepos;
   }
 };
 

@@ -25,7 +25,7 @@ api_url = 'https://api.github.com/user/repos'
 
 # Headers for the API request
 headers = {
-    'Authorization': f'token {GITHUB_TOKEN}',
+    'Authorization': f'token {GITHUB_ADD_REPOS_TOKEN}',
     'Accept': 'application/vnd.github.v3+json'
 }
 
