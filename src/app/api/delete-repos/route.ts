@@ -3,18 +3,17 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/utils';
 import { Repo } from '@/types/types';
 
-export async function POST(request: NextRequest, response: NextResponse) {
+export async function POST(request: NextRequest) {
   const session = await getServerSession(authOptions);
 
   if (!session) {
     return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
   }
 
-  const itemsToDelete = await request.json();
-  const token = session.accessToken;
+  const itemsToDelete: Repo[] = await request.json();
+  const token = session.accessToken as string;
 
   const deleteRepo = async (repo: Repo) => {
-    console.log(repo);
     const response = await fetch(
       `https://api.github.com/repos/${repo.ownerName}/${repo.name}`,
       {

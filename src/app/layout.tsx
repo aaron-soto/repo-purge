@@ -78,25 +78,6 @@ export default function RootLayout({
               content="/images/favicons/browserconfig.xml"
             />
             <meta name="theme-color" content="#000000" />
-            <script type="application/ld+json">
-              {`{
-                "@context": "https://schema.org",
-                "@type": "WebApplication",
-                "name": "Repo Purge",
-                "url": "https://www.yourdomain.com",
-                "image": "https://www.yourdomain.com/images/logo.png",
-                "description": "Github Repository bulk delete tool",
-                "author": {
-                  "@type": "Person",
-                  "name": "Your Name"
-                },
-                "potentialAction": {
-                  "@type": "SearchAction",
-                  "target": "https://www.yourdomain.com/search?q={search_term_string}",
-                  "query-input": "required name=search_term_string"
-                }
-              }`}
-            </script>
           </head>
           <body className={cn(inter.className, 'dark bg-black flex flex-col')}>
             <Navbar />

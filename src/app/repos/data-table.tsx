@@ -103,18 +103,45 @@ export function DataTable<TData, TValue>({
   }, []);
 
   const handleDeleteRepos = async () => {
+    const selectedRepos = getSelectedReposByIdx();
     const response = await fetch('/api/delete-repos', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(mapToRepos(getSelectedReposByIdx())),
+      body: JSON.stringify(mapToRepos(selectedRepos)),
     });
+
     const result = await response.json();
     if (response.ok) {
       setRowSelection({});
-      localStorage.setItem('deleteToast', 'true');
-      window.location.reload();
+
+      const updateResponse = await fetch('/api/updateAirtableValue', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fieldName: 'total_repos_deleted',
+          value: selectedRepos.length,
+        }),
+      });
+
+      if (updateResponse.ok) {
+        // Check if response is not empty before parsing
+        const resText = await updateResponse.text();
+        const resData = resText ? JSON.parse(resText) : null;
+
+        console.log(resData);
+
+        localStorage.setItem('deleteToast', 'true');
+        window.location.reload();
+      } else {
+        console.error(
+          'Failed to update Airtable:',
+          await updateResponse.text(),
+        );
+      }
     } else {
       console.error('Failed to delete repos:', result.error);
     }
