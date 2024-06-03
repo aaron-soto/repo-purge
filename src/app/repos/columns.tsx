@@ -75,13 +75,13 @@ const RepoActionsCell = ({ row }: any) => {
               Visit Repo
             </a>
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem
+          {/* <DropdownMenuSeparator /> */}
+          {/* <DropdownMenuItem
             className="text-red-500"
             onClick={() => handleOpenDialog(repo)}
           >
             Delete Repo
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
         </DropdownMenuContent>
       </DropdownMenu>
 
@@ -99,9 +99,9 @@ const RepoActionsCell = ({ row }: any) => {
               <Button variant="outline" onClick={() => setDialogOpen(false)}>
                 Cancel
               </Button>
-              {/* <Button variant="destructive" onClick={handleDelete}>
+              <Button variant="destructive" onClick={handleDelete}>
                 Delete
-              </Button> */}
+              </Button>
             </div>
           </DialogHeader>
         </DialogContent>
