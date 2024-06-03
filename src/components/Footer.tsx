@@ -13,6 +13,10 @@ const Footer = () => {
           <div className="w-px h-4 bg-slate-500/20"></div>
           <a href="/changelog">Changelog</a>
           <div className="w-px h-4 bg-slate-500/20"></div>
+          <a href="https://github.com/aaron-soto/repo-purge" target="_blank">
+            Open Source
+          </a>
+          <div className="w-px h-4 bg-slate-500/20"></div>
           <BuyMeACoffeeButton />
         </div>
       </div>

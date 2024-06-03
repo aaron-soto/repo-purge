@@ -34,7 +34,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -43,12 +43,22 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
   columns,
 }: DataTableProps<TData, TValue>) {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [data, setData] = useState<TData[]>([]);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState({});
   const { toast } = useToast();
+
+  useEffect(() => {
+    const toastFlag = localStorage.getItem('deleteToast');
+    if (toastFlag) {
+      toast({
+        title: 'Repo(s) deleted successfully',
+      });
+      localStorage.removeItem('deleteToast');
+    }
+  }, [toast]);
 
   const table = useReactTable({
     data,
@@ -75,15 +85,22 @@ export function DataTable<TData, TValue>({
   const selectedRowCount = Object.keys(rowSelection).length;
   const isMultipleRowsSelected = selectedRowCount > 1;
 
-  useEffect(() => {
-    if (session) {
-      fetchRepos(session.accessToken!).then((data: any) => {
-        if (data) {
-          setData(data);
-        }
-      });
+  const fetchUpdatedData = useCallback(async () => {
+    if (!session) return;
+    try {
+      const repos = await fetchRepos(session.accessToken!);
+      if (repos) {
+        console.log(repos);
+        setData(repos);
+      }
+    } catch (error) {
+      console.error('Failed to fetch repos:', error);
     }
   }, [session]);
+
+  useEffect(() => {
+    fetchUpdatedData();
+  }, []);
 
   const handleDeleteRepos = async () => {
     const response = await fetch('/api/delete-repos', {
@@ -95,20 +112,12 @@ export function DataTable<TData, TValue>({
     });
     const result = await response.json();
     if (response.ok) {
-      toast({
-        title: `Repo${isMultipleRowsSelected ? 's' : ''} deleted successfully`,
-      });
-      fetchUpdatedData();
       setRowSelection({});
+      localStorage.setItem('deleteToast', 'true');
+      window.location.reload();
     } else {
-      console.error('failed to delete repos: ', result.error);
+      console.error('Failed to delete repos:', result.error);
     }
-  };
-
-  const fetchUpdatedData = async () => {
-    fetchRepos(session!.accessToken!).then((data: any) => {
-      setData(data);
-    });
   };
 
   const getSelectedReposByIdx = () =>

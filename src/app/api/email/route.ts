@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 import Mail from 'nodemailer/lib/mailer';
 
 export async function POST(request: NextRequest) {
-  const { email, name, message } = await request.json();
+  const { email, name, message, form } = await request.json();
 
   const transport = nodemailer.createTransport({
     host: 'smtp.office365.com',
@@ -15,14 +15,25 @@ export async function POST(request: NextRequest) {
     },
   });
 
-  const mailOptions: Mail.Options = {
-    from: process.env.NODEMAILER_EMAIL,
-    to: process.env.NODEMAILER_EMAIL,
-    subject: `Message from ${name} (${email})`,
-    text: message,
-  };
-
-  console.log(mailOptions);
+  let mailOptions: Mail.Options;
+  switch (form) {
+    case 'contact':
+      mailOptions = {
+        from: process.env.NODEMAILER_EMAIL,
+        to: process.env.NODEMAILER_EMAIL,
+        subject: `Message from ${name} (${email})`,
+        text: message,
+      };
+      break;
+    case 'newsletter':
+      mailOptions = {
+        from: process.env.NODEMAILER_EMAIL,
+        to: process.env.NODEMAILER_EMAIL,
+        subject: 'Newsletter signup',
+        text: `Email: ${email}`,
+      };
+      break;
+  }
 
   const sendMailPromise = () =>
     new Promise<string>((resolve, reject) => {

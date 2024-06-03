@@ -2,15 +2,50 @@
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useToast } from '@/components/ui/use-toast';
 import { FEATURES, STEPS } from '@/lib/data';
+import { sendContactEmail } from '@/lib/emails';
 import { useSession, signIn } from 'next-auth/react';
 import Link from 'next/link';
+import { useForm, SubmitHandler } from 'react-hook-form';
+
+export type NewsletterFormData = {
+  email: string;
+};
 
 export default function Home() {
   const { data: session } = useSession();
+  const { toast } = useToast();
 
-  if (session) {
-  }
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    reset,
+  } = useForm<NewsletterFormData>();
+
+  const onSubmit: SubmitHandler<NewsletterFormData> = (
+    data: NewsletterFormData,
+  ) => {
+    sendContactEmail({ data, form: 'newsletter' }).then(res => {
+      if (res.ok) {
+        toast({
+          title: 'Successfully Joined List',
+          variant: 'success',
+          description: 'We promise not to spam you with emails',
+        });
+
+        reset();
+      } else {
+        toast({
+          title: 'Error',
+          variant: 'destructive',
+          description: 'Something went wrong, please try again',
+        });
+      }
+    });
+  };
 
   return (
     <>
@@ -85,19 +120,22 @@ export default function Home() {
       </div>
 
       <div className="grainy">
-        <div className="container py-20">
+        <div className="container py-32">
           <h2 className="text-2xl font-semibold">Get in touch</h2>
           <p>Join our mail list to get updates on RepoPurge</p>
 
-          <Input
-            type="text"
-            placeholder="johnDoe@gmail.com"
-            className="mt-2 bg-white"
-          ></Input>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Input
+              {...register('email', { required: true })}
+              type="text"
+              placeholder="johnDoe@gmail.com"
+              className="mt-2 bg-white"
+            ></Input>
 
-          <Button variant="secondary" className="mt-4">
-            Join List
-          </Button>
+            <Button variant="secondary" className="mt-4">
+              Join List
+            </Button>
+          </form>
         </div>
       </div>
     </>

@@ -22,11 +22,11 @@ const Page = () => {
     handleSubmit,
     watch,
     formState: { errors },
-    reset, // Importing reset function
+    reset,
   } = useForm<ContactFormData>();
 
   const onSubmit: SubmitHandler<ContactFormData> = data => {
-    sendContactEmail(data).then(res => {
+    sendContactEmail({ data, form: 'contact' }).then(res => {
       if (res.ok) {
         toast({
           title: 'Message sent',

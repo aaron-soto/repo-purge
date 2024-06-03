@@ -154,7 +154,8 @@ const Navbar = () => {
                   tabIndex={-1}
                 >
                   <a
-                    href="#"
+                    href="https://buymeacoffee.com/aaronmsoto2"
+                    target="_blank"
                     className="block px-4 py-2 text-sm text-white cursor-pointer hover:text-yellow-300"
                     role="menuitem"
                     tabIndex={-1}
@@ -163,7 +164,8 @@ const Navbar = () => {
                     Donate & Support
                   </a>
                   <a
-                    href="#"
+                    href="https://github.com/aaron-soto/terminal-app/issues/new?assignees=&labels=bug&projects=&template=bug_report.md&title=Issue%3A+Bug+report+%F0%9F%90%9E"
+                    target="_blank"
                     className="block px-4 py-2 text-sm text-white cursor-pointer hover:text-yellow-300"
                     role="menuitem"
                     tabIndex={-1}
@@ -171,6 +173,17 @@ const Navbar = () => {
                   >
                     Report a bug
                   </a>
+                  <a
+                    href="https://github.com/aaron-soto/terminal-app/issues/new?assignees=&labels=enhancement&projects=&template=feature_request.md&title=Issue%3A+Feature+Request+%F0%9F%9A%80"
+                    target="_blank"
+                    className="block px-4 py-2 text-sm text-white cursor-pointer hover:text-yellow-300"
+                    role="menuitem"
+                    tabIndex={-1}
+                    id="user-menu-item-1"
+                  >
+                    Request a feature
+                  </a>
+                  <Separator className="bg-[#434242] h-[.5px]" />
                   <a
                     onClick={handleSignOut}
                     className="block px-4 py-2 text-sm text-white cursor-pointer hover:text-yellow-300"
