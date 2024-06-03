@@ -77,7 +77,7 @@ export default function RootLayout({
               name="msapplication-config"
               content="/images/favicons/browserconfig.xml"
             />
-            <meta name="theme-color" content="#ffffff" />
+            <meta name="theme-color" content="#000000" />
             <script type="application/ld+json">
               {`{
                 "@context": "https://schema.org",
