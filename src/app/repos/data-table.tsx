@@ -126,7 +126,7 @@ export function DataTable<TData, TValue>({
   const renderDialog = () => (
     <Dialog>
       <DialogTrigger asChild>
-        <span className="px-4 py-2 ml-4 font-medium text-white bg-red-500 rounded cursor-pointer md:ml-0 lg:flex hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-200 focus:ring-offset-2">
+        <span className="px-4  py-2 ml-4 font-medium text-white bg-red-500 rounded cursor-pointer md:ml-0 lg:flex hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-200 focus:ring-offset-2">
           Delete{' '}
           {selectedRowCount > 0 &&
             `${selectedRowCount} repo${isMultipleRowsSelected ? 's' : ''}`}
@@ -153,7 +153,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex items-center py-4">
+      <div className="flex flex-col md:flex-row items-center py-4">
         <Input
           placeholder="Filter repos..."
           value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
