@@ -110,6 +110,21 @@ const RepoActionsCell = ({ row }: any) => {
   );
 };
 
+const SelectCell = ({ row }: any) => {
+  return (
+    <Checkbox
+      checked={row.getIsSelected()}
+      onCheckedChange={value => row.toggleSelected(!!value)}
+      aria-label="Select row"
+    />
+  );
+};
+
+const DescriptionCell = ({ getValue }: any) => {
+  const description = getValue();
+  return description ? description : <span className="text-muted">-</span>;
+};
+
 export const columns: ColumnDef<Repo>[] = [
   {
     id: 'select',
@@ -123,13 +138,7 @@ export const columns: ColumnDef<Repo>[] = [
         aria-label="Select all"
       />
     ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={value => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
+    cell: SelectCell,
     enableSorting: false,
     enableHiding: false,
   },
@@ -150,10 +159,7 @@ export const columns: ColumnDef<Repo>[] = [
   {
     accessorKey: 'description',
     header: 'Description',
-    cell: ({ getValue }) => {
-      const description = getValue();
-      return description ? description : <span className="text-muted">-</span>;
-    },
+    cell: DescriptionCell,
   },
   {
     accessorKey: 'visibility',
