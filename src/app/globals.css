@@ -118,3 +118,8 @@ p a {
   background-size: cover;
   background-position: center;
 }
+
+#blurred-bg {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}

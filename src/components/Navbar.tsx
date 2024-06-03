@@ -35,7 +35,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b h-18 bg-black/60 backdrop-blur-lg">
+    <nav
+      className="fixed top-0 left-0 right-0 z-50 border-b h-18 bg-black/80 backdrop-blur-lg"
+      id="blurred-bg"
+    >
       <div className="container px-3 sm:px-[2rem]">
         <div className="relative flex items-center justify-between h-16">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
