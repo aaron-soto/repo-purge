@@ -3,10 +3,11 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
-import { FEATURES, STEPS } from '@/lib/data';
+import { FEATURES, STEPS, FUNNY_EMAILS } from '@/lib/data';
 import { sendContactEmail } from '@/lib/emails';
 import { useSession, signIn } from 'next-auth/react';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 export type NewsletterFormData = {
@@ -15,7 +16,14 @@ export type NewsletterFormData = {
 
 export default function Home() {
   const { data: session } = useSession();
+  const [randomEmail, setRandomEmail] = useState<string>('');
   const { toast } = useToast();
+
+  useEffect(() => {
+    setRandomEmail(
+      FUNNY_EMAILS[Math.floor(Math.random() * FUNNY_EMAILS.length)],
+    );
+  }, []);
 
   const {
     register,
@@ -128,7 +136,7 @@ export default function Home() {
             <Input
               {...register('email', { required: true })}
               type="text"
-              placeholder="johnDoe@gmail.com"
+              placeholder={randomEmail}
               className="mt-2 bg-white"
             ></Input>
 

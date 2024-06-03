@@ -56,8 +56,7 @@ export const FAQS: FAQ[] = [
   },
   {
     question: 'Who can I contact for support?',
-    answer:
-      'If you need support or have any questions, please contact us at support@repopurge.com.',
+    answer: `If you need support or have any questions, please contact us at ${RP_INFO.contactEmail}`,
   },
 ];
 
@@ -102,4 +101,36 @@ export const STEPS = [
     description:
       'Review your selection and confirm the deletion process with a single click.',
   },
+];
+
+export const FUNNY_EMAILS: string[] = [
+  'harry.potter@hogwarts.wiz',
+  'sherlock.holmes@221bbaker.london',
+  'tony.stark@starkindustries.com',
+  'homer.simpson@springfield.com',
+  'frodo.baggins@shire.middleearth',
+  'batman@gotham.wayne',
+  'rick.sanchez@c137.com',
+  'james.bond@mi6.uk',
+  'ron.swanson@pawnee.gov',
+  'elsa@arendelle.ice',
+  'katniss.everdeen@panem.district12',
+  'mario@mushroom.kingdom',
+  'aragorn@dunedain.king',
+  'dumbledore@hogwarts.wiz',
+  'tony.soprano@mafia.family',
+  'wanda.maximoff@avengers.hq',
+  'peter.parker@dailybugle.nyc',
+  'luke.skywalker@jedi.academy',
+  'donald.duck@disney.toon',
+  'shrek@swamp.farfaraway',
+  'walter.white@heisenberg.bb',
+  'jack.sparrow@blackpearl.sea',
+  'bruce.banner@hulk.smash',
+  'daenerys.targaryen@dragonstone.westeros',
+  'wonder.woman@themyscira.dc',
+  'legolas@mirwood.elven',
+  'spock@starfleet.enterprise',
+  'joker@gotham.city',
+  'charlie.brown@peanuts.gang',
 ];
