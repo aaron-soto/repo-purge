@@ -53,7 +53,7 @@ export default function Home() {
         <div className="container py-8 px-3 sm:px-[2rem]">
           <div className="flex items-center justify-center py-32 ">
             <div className="text-center">
-              <h1 className="mb-4 text-5xl font-semibold">
+              <h1 className="mb-4 text-4xl sm:text-5xl font-semibold">
                 <span className="text-yellow-300">Effortlessly</span> Clean Up
                 Your GitHub Repositories with Repo Purge
               </h1>
