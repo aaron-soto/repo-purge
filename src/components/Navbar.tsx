@@ -44,7 +44,7 @@ const Navbar = () => {
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             <button
               type="button"
-              className="relative inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              className="relative inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:bg-secondary hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
               aria-controls="mobile-menu"
               aria-expanded={mobileMenuOpen}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -141,7 +141,7 @@ const Navbar = () => {
                 ) : (
                   <Link
                     href="/login"
-                    className="px-3 py-2 text-sm font-medium rounded-md bg-secondary hover:bg-gray-800 hover:text-white"
+                    className="px-3 py-2 text-sm font-medium rounded-md bg-secondary hover:bg-secondary-lighter hover:text-white"
                   >
                     Get Started
                   </Link>
@@ -257,7 +257,7 @@ const Navbar = () => {
                 <a
                   key={idx}
                   href={link.href}
-                  className="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white"
+                  className="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-secondary hover:text-white"
                 >
                   {link.text}
                 </a>

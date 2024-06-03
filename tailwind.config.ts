@@ -37,6 +37,7 @@ const config = {
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
+          lighter: 'hsl(var(--secondary-lighter))',
           foreground: 'hsl(var(--secondary-foreground))',
         },
         destructive: {

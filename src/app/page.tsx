@@ -63,7 +63,7 @@ export default function Home() {
               </p>
               {!session ? (
                 <button
-                  className="px-6 py-2 rounded-md bg-secondary"
+                  className="px-6 py-2 rounded-md bg-secondary hover:bg-secondary-lighter"
                   onClick={() => signIn('github')}
                 >
                   Sign in with github
@@ -120,7 +120,7 @@ export default function Home() {
       </div>
 
       <div className="grainy">
-        <div className="container py-32 px-3 sm:px-[2rem]">
+        <div className="container py-16 md:py-32 px-3 sm:px-[2rem]">
           <h2 className="text-2xl font-semibold">Get in touch</h2>
           <p>Join our mail list to get updates on RepoPurge</p>
 
