@@ -1,13 +1,13 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "../auth/[...nextauth]/route"; // Adjust the path as needed
-import { Repo } from "@/types/types";
+import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/utils';
+import { Repo } from '@/types/types';
 
 export async function POST(request: NextRequest, response: NextResponse) {
   const session = await getServerSession(authOptions);
 
   if (!session) {
-    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+    return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
   }
 
   const itemsToDelete = await request.json();
@@ -18,12 +18,12 @@ export async function POST(request: NextRequest, response: NextResponse) {
     const response = await fetch(
       `https://api.github.com/repos/${repo.ownerName}/${repo.name}`,
       {
-        method: "DELETE",
+        method: 'DELETE',
         headers: {
           Authorization: `token ${token}`,
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-      }
+      },
     );
 
     if (!response.ok) {

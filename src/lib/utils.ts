@@ -1,6 +1,8 @@
-import { Repo } from "@/types/types";
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { Repo } from '@/types/types';
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+import GithubProvider from 'next-auth/providers/github';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -41,7 +43,7 @@ export const fetchRepos = async (sessionAccessToken: string) => {
           headers: {
             Authorization: `token ${sessionAccessToken}`,
           },
-        }
+        },
       );
       const data = await response.json();
       allRepos = allRepos.concat(data);
@@ -53,4 +55,34 @@ export const fetchRepos = async (sessionAccessToken: string) => {
 
     return allRepos;
   }
+};
+
+export const authOptions = {
+  providers: [
+    GithubProvider({
+      clientId: process.env.GITHUB_ID as string,
+      clientSecret: process.env.GITHUB_SECRET as string,
+      authorization: { params: { scope: 'user repo delete_repo' } },
+    }),
+  ],
+  callbacks: {
+    async jwt({ token, account, profile }: any) {
+      // Initial sign in
+      if (account) {
+        token.accessToken = account.access_token;
+      }
+
+      return token;
+    },
+    async session({ session, token }: any) {
+      if (token?.accessToken) {
+        session.accessToken = token.accessToken;
+      }
+      if (token?.email) {
+        session.user = session.user ?? {};
+        session.user.email = token.email;
+      }
+      return session;
+    },
+  },
 };
