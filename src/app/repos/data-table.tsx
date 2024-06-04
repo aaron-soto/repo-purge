@@ -22,6 +22,7 @@ import {
 } from '@/components/ui/table';
 import { useToast } from '@/components/ui/use-toast';
 import { fetchRepos } from '@/lib/utils';
+import { Repo } from '@/types/types';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -35,6 +36,7 @@ import {
 } from '@tanstack/react-table';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState, useCallback } from 'react';
+import { RefreshCw } from 'lucide-react';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -49,16 +51,6 @@ export function DataTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState({});
   const { toast } = useToast();
-
-  useEffect(() => {
-    const toastFlag = localStorage.getItem('deleteToast');
-    if (toastFlag) {
-      toast({
-        title: 'Repo(s) deleted successfully',
-      });
-      localStorage.removeItem('deleteToast');
-    }
-  }, [toast]);
 
   const table = useReactTable({
     data,
@@ -99,7 +91,14 @@ export function DataTable<TData, TValue>({
 
   useEffect(() => {
     fetchUpdatedData();
-  }, []);
+  }, [fetchUpdatedData]);
+
+  const refreshData = () => {
+    setRowSelection({});
+    table.getColumn('name')?.setFilterValue('');
+    fetchUpdatedData();
+  };
+
 
   const handleDeleteRepos = async () => {
     const selectedRepos = getSelectedReposByIdx();
@@ -113,8 +112,6 @@ export function DataTable<TData, TValue>({
 
     const result = await response.json();
     if (response.ok) {
-      setRowSelection({});
-
       const updateResponse = await fetch('/api/updateAirtableValue', {
         method: 'POST',
         headers: {
@@ -127,12 +124,11 @@ export function DataTable<TData, TValue>({
       });
 
       if (updateResponse.ok) {
-        // Check if response is not empty before parsing
-        const resText = await updateResponse.text();
-        const resData = resText ? JSON.parse(resText) : null;
-
-        localStorage.setItem('deleteToast', 'true');
-        window.location.reload();
+        toast({
+          title: 'Repo(s) deleted successfully',
+        });
+        fetchUpdatedData();
+        setRowSelection({})
       } else {
         console.error(
           'Failed to update Airtable:',
@@ -186,6 +182,9 @@ export function DataTable<TData, TValue>({
           }
           className="w-full md:max-w-sm"
         />
+        <Button onClick={refreshData} variant="ghost" className="ml-2">
+          <RefreshCw size={15} />
+        </Button>
         <div className="ml-auto">{selectedRowCount > 0 && renderDialog()}</div>
       </div>
       <div className="border rounded-md">

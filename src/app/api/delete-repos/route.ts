@@ -31,7 +31,10 @@ export async function POST(request: NextRequest) {
   const token = session.accessToken as string;
 
   try {
-    await Promise.all(itemsToDelete.map((repo) => deleteRepo(repo, token)));
+    await Promise.all(itemsToDelete.map((repo) => {
+      deleteRepo(repo, token)
+    }));
+
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

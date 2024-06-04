@@ -9,7 +9,6 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function mapToRepos(rawData: any[]): Repo[] {
-  console.log('rawData', rawData);
   return rawData.map((repo: any): Repo => {
     return {
       id: repo.id,
@@ -37,8 +36,10 @@ export const fetchRepos = async (sessionAccessToken: string) => {
     let fetchMore = true;
 
     while (fetchMore) {
+      // TODO: Is there a better way to prevent caching or this issue?
+      const noCacheParam = new Date().getTime(); // Generate a timestamp to prevent caching
       const response = await fetch(
-        `https://api.github.com/user/repos?per_page=100&page=${page}`,
+        `https://api.github.com/user/repos?per_page=100&page=${page}&_=${noCacheParam}`,
         {
           headers: {
             Authorization: `token ${sessionAccessToken}`,
@@ -59,6 +60,7 @@ export const fetchRepos = async (sessionAccessToken: string) => {
     return mappedRepos;
   }
 };
+
 
 export const authOptions = {
   providers: [
