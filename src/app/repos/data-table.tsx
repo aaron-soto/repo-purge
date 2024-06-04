@@ -1,6 +1,7 @@
 'use client';
 
 import { DataTablePagination } from '@/app/repos/data-table-pagination';
+import { track } from '@vercel/analytics';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -126,6 +127,9 @@ export function DataTable<TData, TValue>({
       if (updateResponse.ok) {
         toast({
           title: 'Repo(s) deleted successfully',
+        });
+        track('repo_deleted', {
+          count: selectedRepos.length,
         });
         fetchUpdatedData();
         setRowSelection({})
