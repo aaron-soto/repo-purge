@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import Analytics from '@/components/Analytics';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
   return (
     <SessionWrapper>
       <TooltipProvider>
@@ -82,6 +84,7 @@ export default function RootLayout({
           <body className={cn(inter.className, 'dark bg-black flex flex-col')}>
             <Navbar />
             <main className="pt-18">{children}</main>
+            <Analytics />
             <Footer />
             <div className="z-50">
               <Toaster />
