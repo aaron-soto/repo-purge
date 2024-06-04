@@ -87,21 +87,29 @@ To deploy the application, you can use platforms like Vercel or Netlify. Here’
 2. **Select Repositories**: Choose the repositories you want to delete.
 3. **Confirm Deletion**: Confirm the deletion process.
 
+## Testing
+1. ensure you have the following values in your `.env`
+   ```
+   GITHUB_ADD_REPOS_TOKEN=<token with scopes to create repos>
+   GITHUB_USERNAME=<your github username>
+   ```
+2. run `npm run create-dummy-repos`
+
 ## Contributing
 
 Contributions are always welcome! Please follow these steps to contribute:
 
 1. **Fork the Repository**
 2. **Create a Feature Branch**
-   ```bash
+   ```powershell
    git checkout -b feature/YourFeature
    ```
 3. **Commit Your Changes**
-   ```bash
+   ```powershell
    git commit -m 'Add some feature'
    ```
 4. **Push to the Branch**
-   ```bash
+   ```powershell
    git push origin feature/YourFeature
    ```
 5. **Open a Pull Request**
