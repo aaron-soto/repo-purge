@@ -79,15 +79,10 @@ export const authOptions = {
 
       return token;
     },
-    async session({ session, token }: any) {
-      if (token?.accessToken) {
-        session.accessToken = token.accessToken;
-      }
-      if (token?.email) {
-        session.user = session.user ?? {};
-        session.user.email = token.email;
-      }
-      return session;
-    },
+    async redirect({ url, baseUrl }: any) {
+      return url.startsWith(baseUrl)
+        ? `${baseUrl}/repos`
+        : url;
+    }
   },
 };
