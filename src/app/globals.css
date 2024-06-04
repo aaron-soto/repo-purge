@@ -109,7 +109,7 @@ p a {
 .grainy {
   background-color: white;
   background-image: url('../../public/images/grain.png');
-  background-size: 300px 300px;
+  background-size: 500px 500px;
   background-position: 0 0;
   color: #000;
 }
@@ -124,4 +124,12 @@ p a {
 #blurred-bg {
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
+}
+
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+ 
+.spinner {
+    animation: spinner 1.8s linear infinite;
 }

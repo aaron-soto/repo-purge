@@ -9,6 +9,7 @@ import { useSession, signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { Loader } from 'lucide-react';
 
 export type NewsletterFormData = {
   email: string;
@@ -18,6 +19,7 @@ export default function Home() {
   const { data: session } = useSession();
   const [randomEmail, setRandomEmail] = useState<string>('');
   const { toast } = useToast();
+  const [isNewsletterLoading, setIsNewsletterLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setRandomEmail(
@@ -36,6 +38,7 @@ export default function Home() {
   const onSubmit: SubmitHandler<NewsletterFormData> = (
     data: NewsletterFormData,
   ) => {
+    setIsNewsletterLoading(true);
     sendContactEmail({ data, form: 'newsletter' }).then(res => {
       if (res.ok) {
         toast({
@@ -44,6 +47,7 @@ export default function Home() {
           description: 'We promise not to spam you with emails',
         });
 
+        setIsNewsletterLoading(false);
         reset();
       } else {
         toast({
@@ -140,8 +144,9 @@ export default function Home() {
               className="mt-2 bg-white"
             ></Input>
 
-            <Button variant="secondary" className="mt-4">
-              Join List
+            <Button variant="secondary" className="mt-4 min-w-32" disabled={isNewsletterLoading}>{
+              isNewsletterLoading ? <Loader className="spinner" size={20} /> : 'Join List'
+            }
             </Button>
           </form>
         </div>
