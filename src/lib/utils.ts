@@ -1,6 +1,7 @@
 import { Repo } from '@/types/types';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { track } from '@vercel/analytics';
 
 import GithubProvider from 'next-auth/providers/github';
 
@@ -71,6 +72,11 @@ export const authOptions = {
     }),
   ],
   callbacks: {
+    async signIn(user: any, account: any, profile: any) {
+      track('sign_in');
+      return true;
+    }
+    ,
     async jwt({ token, account, profile }: any) {
       // Initial sign in
       if (account) {
