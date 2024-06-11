@@ -37,7 +37,7 @@ import {
 } from '@tanstack/react-table';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState, useCallback } from 'react';
-import { RefreshCw } from 'lucide-react';
+import { Loader, RefreshCw } from 'lucide-react';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -51,6 +51,7 @@ export function DataTable<TData, TValue>({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState({});
+  const [loading, setLoading] = useState(true); // Add loading state
   const { toast } = useToast();
 
   const table = useReactTable({
@@ -81,12 +82,15 @@ export function DataTable<TData, TValue>({
   const fetchUpdatedData = useCallback(async () => {
     if (!session) return;
     try {
+      setLoading(true); // Set loading to true when fetching data
       const repos = await fetchRepos(session.accessToken!);
       if (repos) {
         setData(repos as TData[]);
       }
     } catch (error) {
       console.error('Failed to fetch repos:', error);
+    } finally {
+      setLoading(false); // Set loading to false after fetching data
     }
   }, [session]);
 
@@ -99,7 +103,6 @@ export function DataTable<TData, TValue>({
     table.getColumn('name')?.setFilterValue('');
     fetchUpdatedData();
   };
-
 
   const handleDeleteRepos = async () => {
     const selectedRepos = getSelectedReposByIdx();
@@ -132,7 +135,7 @@ export function DataTable<TData, TValue>({
           count: selectedRepos.length,
         });
         fetchUpdatedData();
-        setRowSelection({})
+        setRowSelection({});
       } else {
         console.error(
           'Failed to update Airtable:',
@@ -201,16 +204,25 @@ export function DataTable<TData, TValue>({
                     {header.isPlaceholder
                       ? null
                       : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
                   </TableHead>
                 ))}
               </TableRow>
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {loading ? ( // Show loading indicator when loading is true
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 w-full text-center"
+                >
+                  <Loader className="mx-auto animate-spin h-8 w-8 text-gray-500" />
+                </TableCell>
+              </TableRow>
+            ) : table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map(row => (
                 <TableRow
                   key={row.id}
