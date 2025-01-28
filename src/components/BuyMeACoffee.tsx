@@ -3,7 +3,7 @@ const BuyMeACoffeeButton = () => {
     <a
       className="buyButton"
       target="_blank"
-      href="https://buymeacoffee.com/aaronmsoto2"
+      href="buymeacoffee.com/aaron.soto.dev"
     >
       <span className="coffeeButtonText">Buy me a coffee</span>
     </a>

@@ -1,23 +1,41 @@
-import PageHeader from '@/components/PageHeader';
-import { RP_INFO } from '@/lib/data';
+import { CONTACT_INFO } from "@/lib/data";
+import Link from "next/link";
+import PageHeader from "@/components/PageHeader";
 
 const Page = () => {
   return (
-    <div className="container pt-20 px-3 sm:px-[2rem]">
+    <div className="container pt-8 px-3 sm:px-[2rem]">
       <PageHeader>Privacy Policy</PageHeader>
 
       <section>
-        <h2 className="text-2xl font-semibold mt-8 mb-1">1. Introduction</h2>
+        <h2 className="text-2xl font-light mt-8 mb-1">
+          Owner and Data Collector
+        </h2>
+        <b>Aaron Soto</b>
+        <p>Casa Grande, Arizona</p>
+        <p>
+          <b>Owner Contact Email: </b>
+          <Link href={"mailto:" + CONTACT_INFO.email}>
+            aaron.m.soto1@gmail.com
+          </Link>
+        </p>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-light mt-8 mb-1">1. Introduction</h2>
         <p className="text-[#8a8a8a]">
-          Welcome to Repo Purge! We are committed to protecting your personal
+          Welcome to Repo Purge! I am committed to protecting your personal
           information and your right to privacy. If you have any questions or
           concerns about this privacy policy or our practices with regard to
-          your personal information, please contact us at {RP_INFO.contactEmail}
+          your personal information, please contact me at{" "}
+          <Link href={"mailto:" + CONTACT_INFO.email}>
+            {CONTACT_INFO.email}
+          </Link>
           .
         </p>
       </section>
       <section>
-        <h2 className="text-2xl font-semibold mt-8 mb-1">
+        <h2 className="text-2xl font-light mt-8 mb-1">
           2. Information We Collect
         </h2>
         <p className="text-[#8a8a8a]">
@@ -28,23 +46,23 @@ const Page = () => {
         </p>
       </section>
       <section>
-        <h2 className="text-2xl font-semibold mt-8 mb-1">
+        <h2 className="text-2xl font-light mt-8 mb-1">
           3. How We Use Your Information
         </h2>
         <p className="text-[#8a8a8a]">
           We use the information we collect from you to manage your account,
-          provide our services, and improve our app. For example, we use{' '}
+          provide our services, and improve our app. For example, we use{" "}
           <a
             href="https://docs.github.com/en/rest/authentication/authenticating-to-the-rest-api?apiVersion=2022-11-28"
             target="_blank"
           >
             your GitHub authentication
-          </a>{' '}
+          </a>{" "}
           to access and manage your repositories as per your instructions.
         </p>
       </section>
       <section>
-        <h2 className="text-2xl font-semibold mt-8 mb-1">
+        <h2 className="text-2xl font-light mt-8 mb-1">
           4. Sharing Your Information
         </h2>
         <p className="text-[#8a8a8a]">
@@ -55,7 +73,7 @@ const Page = () => {
         </p>
       </section>
       <section>
-        <h2 className="text-2xl font-semibold mt-8 mb-1">5. Security</h2>
+        <h2 className="text-2xl font-light mt-8 mb-1">5. Security</h2>
         <p className="text-[#8a8a8a]">
           We strive to maintain reasonable administrative, technical, and
           physical safeguards designed to protect the personal information you
@@ -64,7 +82,7 @@ const Page = () => {
         </p>
       </section>
       <section>
-        <h2 className="text-2xl font-semibold mt-8 mb-1">
+        <h2 className="text-2xl font-light mt-8 mb-1">
           6. Changes to This Privacy Policy
         </h2>
         <p className="text-[#8a8a8a]">

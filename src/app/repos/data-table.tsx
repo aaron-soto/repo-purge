@@ -1,29 +1,5 @@
-'use client';
+"use client";
 
-import { DataTablePagination } from '@/app/repos/data-table-pagination';
-import { track } from '@vercel/analytics';
-import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import { useToast } from '@/components/ui/use-toast';
-import { fetchRepos } from '@/lib/utils';
-import { Repo } from '@/types/types';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -34,10 +10,35 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from '@tanstack/react-table';
-import { useSession } from 'next-auth/react';
-import { useEffect, useState, useCallback } from 'react';
-import { Loader, RefreshCw } from 'lucide-react';
+} from "@tanstack/react-table";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Loader, RefreshCw } from "lucide-react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { useCallback, useEffect, useState } from "react";
+
+import { Button } from "@/components/ui/button";
+import { DataTablePagination } from "@/app/repos/data-table-pagination";
+import { Input } from "@/components/ui/input";
+import { Repo } from "@/types/types";
+import { fetchRepos } from "@/lib/utils";
+import { track } from "@vercel/analytics";
+import { useSession } from "next-auth/react";
+import { useToast } from "@/components/ui/use-toast";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -71,7 +72,7 @@ export function DataTable<TData, TValue>({
     },
     initialState: {
       pagination: {
-        pageSize: 15,
+        pageSize: 10,
       },
     },
   });
@@ -88,7 +89,7 @@ export function DataTable<TData, TValue>({
         setData(repos as TData[]);
       }
     } catch (error) {
-      console.error('Failed to fetch repos:', error);
+      console.error("Failed to fetch repos:", error);
     } finally {
       setLoading(false); // Set loading to false after fetching data
     }
@@ -100,50 +101,50 @@ export function DataTable<TData, TValue>({
 
   const refreshData = () => {
     setRowSelection({});
-    table.getColumn('name')?.setFilterValue('');
+    table.getColumn("name")?.setFilterValue("");
     fetchUpdatedData();
   };
 
   const handleDeleteRepos = async () => {
     const selectedRepos = getSelectedReposByIdx();
-    const response = await fetch('/api/delete-repos', {
-      method: 'POST',
+    const response = await fetch("/api/delete-repos", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(selectedRepos),
     });
 
     const result = await response.json();
     if (response.ok) {
-      const updateResponse = await fetch('/api/updateAirtableValue', {
-        method: 'POST',
+      const updateResponse = await fetch("/api/updateAirtableValue", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          fieldName: 'total_repos_deleted',
+          fieldName: "total_repos_deleted",
           value: selectedRepos.length,
         }),
       });
 
       if (updateResponse.ok) {
         toast({
-          title: 'Repo(s) deleted successfully',
+          title: "Repo(s) deleted successfully",
         });
-        track('repo_deleted', {
+        track("repo_deleted", {
           count: selectedRepos.length,
         });
         fetchUpdatedData();
         setRowSelection({});
       } else {
         console.error(
-          'Failed to update Airtable:',
-          await updateResponse.text(),
+          "Failed to update Airtable:",
+          await updateResponse.text()
         );
       }
     } else {
-      console.error('Failed to delete repos:', result.error);
+      console.error("Failed to delete repos:", result.error);
     }
   };
 
@@ -153,20 +154,20 @@ export function DataTable<TData, TValue>({
   const renderDialog = () => (
     <Dialog>
       <DialogTrigger asChild>
-        <span className="px-4  py-2 ml-4 font-medium text-white bg-red-500 rounded cursor-pointer md:ml-0 lg:flex hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-200 focus:ring-offset-2">
-          Delete{' '}
+        <Button variant="destructive">
+          Delete{" "}
           {selectedRowCount > 0 &&
-            `${selectedRowCount} repo${isMultipleRowsSelected ? 's' : ''}`}
-        </span>
+            `${selectedRowCount} repo${isMultipleRowsSelected ? "s" : ""}`}
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="mb-2">
-            Delete {selectedRowCount} repo{isMultipleRowsSelected ? 's' : ''}?
+            Delete {selectedRowCount} repo{isMultipleRowsSelected ? "s" : ""}?
           </DialogTitle>
           <DialogDescription>
             This action cannot be undone. Are you sure you want to permanently
-            delete the selected repo{isMultipleRowsSelected ? 's' : ''}?
+            delete the selected repo{isMultipleRowsSelected ? "s" : ""}?
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
@@ -183,9 +184,9 @@ export function DataTable<TData, TValue>({
       <div className="flex flex-col md:flex-row items-center py-4">
         <Input
           placeholder="Filter repos..."
-          value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
-          onChange={event =>
-            table.getColumn('name')?.setFilterValue(event.target.value)
+          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("name")?.setFilterValue(event.target.value)
           }
           className="w-full md:max-w-sm"
         />
@@ -197,15 +198,15 @@ export function DataTable<TData, TValue>({
       <div className="border rounded-md">
         <Table>
           <TableHeader>
-            {table.getHeaderGroups().map(headerGroup => (
+            {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map(header => (
+                {headerGroup.headers.map((header) => (
                   <TableHead key={header.id}>
                     {header.isPlaceholder
                       ? null
                       : flexRender(
                           header.column.columnDef.header,
-                          header.getContext(),
+                          header.getContext()
                         )}
                   </TableHead>
                 ))}
@@ -223,19 +224,19 @@ export function DataTable<TData, TValue>({
                 </TableCell>
               </TableRow>
             ) : table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map(row => (
+              table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
+                  data-state={row.getIsSelected() && "selected"}
                 >
-                  {row.getVisibleCells().map(cell => (
+                  {row.getVisibleCells().map((cell) => (
                     <TableCell
                       key={cell.id}
                       className="max-w-xs overflow-hidden truncate whitespace-nowrap"
                     >
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext(),
+                        cell.getContext()
                       )}
                     </TableCell>
                   ))}

@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { columns } from '@/app/repos/columns';
-import { DataTable } from '@/app/repos/data-table';
-import PageHeader from '@/components/PageHeader';
-import { Skeleton } from '@/components/ui/skeleton';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { DataTable } from "@/app/repos/data-table";
+import PageHeader from "@/components/PageHeader";
+import { Skeleton } from "@/components/ui/skeleton";
+import { columns } from "@/app/repos/columns";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function Repos() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  if (status === 'loading') {
+  if (status === "loading") {
     return (
       <div className="container pt-20 px-3 sm:px-[2rem]">
         <PageHeader>Your Repos</PageHeader>
@@ -23,11 +23,11 @@ export default function Repos() {
   }
 
   if (!session) {
-    router.push('/login');
+    router.push("/login");
   }
 
   return (
-    <div className="container pt-20 px-3 sm:px-[2rem]">
+    <div className="container pt-8 px-3 sm:px-[2rem]">
       <PageHeader>Your Repos</PageHeader>
       <DataTable columns={columns} />
     </div>

@@ -1,9 +1,9 @@
-import { Repo } from '@/types/types';
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-import { track } from '@vercel/analytics/server';
+import { Repo } from "@/types/types";
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+import { track } from "@vercel/analytics/server";
 
-import GithubProvider from 'next-auth/providers/github';
+import GithubProvider from "next-auth/providers/github";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -45,7 +45,7 @@ export const fetchRepos = async (sessionAccessToken: string) => {
           headers: {
             Authorization: `token ${sessionAccessToken}`,
           },
-        },
+        }
       );
       const data = await response.json();
       allRepos = allRepos.concat(data);
@@ -62,13 +62,12 @@ export const fetchRepos = async (sessionAccessToken: string) => {
   }
 };
 
-
 export const authOptions = {
   providers: [
     GithubProvider({
-      clientId: process.env.GITHUB_ID as string,
-      clientSecret: process.env.GITHUB_SECRET as string,
-      authorization: { params: { scope: 'user repo delete_repo' } },
+      clientId: process.env.GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+      authorization: { params: { scope: "user repo delete_repo" } },
     }),
   ],
   callbacks: {
@@ -88,13 +87,11 @@ export const authOptions = {
         session.user = session.user ?? {};
         session.user.email = token.email;
       }
-      track('session');
+      track("session");
       return session;
     },
     async redirect({ url, baseUrl }: any) {
-      return url.startsWith(baseUrl)
-        ? `${baseUrl}/repos`
-        : url;
-    }
+      return url.startsWith(baseUrl) ? `${baseUrl}/repos` : url;
+    },
   },
 };

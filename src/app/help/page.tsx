@@ -3,8 +3,8 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
-import { FAQS, RP_INFO } from '@/lib/data';
+} from "@/components/ui/accordion";
+import { CONTACT_INFO, FAQS } from "@/lib/data";
 
 const Page = () => {
   return (
@@ -37,8 +37,8 @@ const Page = () => {
           If you still have unanswered questions shoot us an email and well get
           back to you ASAP.
         </p>
-        <a className="text-yellow-300" href={`mailto:${RP_INFO.contactEmail}`}>
-          {RP_INFO.contactEmail}
+        <a className="text-yellow-300" href={`mailto:${CONTACT_INFO.email}`}>
+          {CONTACT_INFO.email}
         </a>
       </section>
     </>

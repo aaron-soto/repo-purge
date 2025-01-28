@@ -24,7 +24,7 @@
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
-    --radius: 0.3rem;
+    --radius: 0.5rem;
     --success: 120, 100%, 50%;
     --success-foreground: 120, 100%, 20%;
   }
@@ -36,7 +36,7 @@
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
+    --primary: 172 100% 48%;
     --primary-foreground: 240 5.9% 10%;
     --secondary: 240 3.7% 15.9%;
     --secondary-lighter: 240 3.7% 25.9%;
@@ -84,12 +84,8 @@
   background-color: #3f3f3f;
 }
 
-html,
-body {
-  height: 100%;
-  min-height: 100%;
-  margin: 0;
-  padding: 0;
+:root {
+  font-size: 18px;
 }
 
 body {
@@ -108,14 +104,14 @@ p a {
 
 .grainy {
   background-color: white;
-  background-image: url('../../public/images/grain.png');
+  background-image: url("../../public/images/grain.png");
   background-size: 500px 500px;
   background-position: 0 0;
   color: #000;
 }
 
 .custom-black-background {
-  background-image: url('../../public/images/black-bg.jpg');
+  background-image: url("../../public/images/black-bg.jpg");
   background-repeat: none;
   background-size: cover;
   background-position: center;
@@ -127,9 +123,11 @@ p a {
 }
 
 @keyframes spinner {
-  to {transform: rotate(360deg);}
+  to {
+    transform: rotate(360deg);
+  }
 }
- 
+
 .spinner {
-    animation: spinner 1.8s linear infinite;
+  animation: spinner 1.8s linear infinite;
 }
