@@ -36,10 +36,10 @@ const Navbar = () => {
     >
       <div className="container px-3 sm:px-[2rem]">
         <div className="relative flex items-center justify-between py-1">
-          <Link href="/" className="text-xl">
+          <Link href="/" className="text-lg">
             Repo Purge
           </Link>
-          <div className="flex gap-2">
+          <div className="flex items-center gap-2">
             <div className="flex space-x-4">
               {Links.map((link, idx) => {
                 return (
@@ -107,12 +107,9 @@ const Navbar = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Link
-                href="/login"
-                className="px-3 py-2 text-sm font-medium rounded-md bg-secondary hover:bg-secondary-lighter hover:text-white"
-              >
-                Get Started
-              </Link>
+              <Button size="sm" asChild>
+                <Link href="/login">Get Started</Link>
+              </Button>
             )}
           </div>
         </div>
